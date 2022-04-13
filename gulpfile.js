@@ -47,7 +47,8 @@ function styles() {
       // IEは11以上、Androidは4.4以上
       // その他は最新2バージョンで必要なベンダープレフィックスを付与する設定
     autoprefixer({
-      cascade: false
+      cascade: false,
+      grid: "autoplace" // gridの値に"autoplace"を指定する
     })
   ];
   return gulp
