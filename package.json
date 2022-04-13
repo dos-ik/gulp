@@ -1,38 +1,35 @@
 {
-  "name": "dev",
+  "name": "gulp_test",
   "version": "1.0.0",
   "description": "",
-  "main": "gulpfile-backup.js",
-  "directories": {
-    "doc": "doc"
-  },
+  "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/k-ish/dev.git"
+    "url": "git+https://github.com/dos-ik/gulp.git"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/k-ish/dev/issues"
+    "url": "https://github.com/dos-ik/gulp/issues"
   },
-  "homepage": "https://github.com/k-ish/dev#readme",
+  "homepage": "https://github.com/dos-ik/gulp#readme",
   "devDependencies": {
-    "autoprefixer": "^9.7.4",
-    "css-declaration-sorter": "^5.0.0",
-    "css-mqpacker": "^7.0.0",
+    "autoprefixer": "^10.4.4",
+    "css-declaration-sorter": "^6.2.2",
     "gulp": "^4.0.2",
+    "gulp-group-css-media-queries": "^1.2.2",
     "gulp-imagemin": "^7.1.0",
-    "gulp-notify": "^3.2.0",
+    "gulp-notify": "^4.0.0",
     "gulp-plumber": "^1.2.1",
-    "gulp-postcss": "^8.0.0",
-    "gulp-pug": "^4.0.1",
-    "gulp-sass": "^4.0.2",
+    "gulp-postcss": "^9.0.1",
+    "gulp-pug": "^5.0.0",
+    "gulp-sass": "^5.1.0",
     "imagemin-gifsicle": "^7.0.0",
-    "imagemin-mozjpeg": "^8.0.0",
-    "imagemin-pngquant": "^8.0.0"
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "sass": "^1.50.0"
   }
 }

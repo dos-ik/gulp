@@ -1,7 +1,11 @@
+// プラグイン読込
+
+
+// gulp 本体
 const gulp = require('gulp');
 
 // css
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('sass'));
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const cssdeclsort = require('css-declaration-sorter');
@@ -12,14 +16,10 @@ const pug = require('gulp-pug');
 
 // image
 const imagemin = require("gulp-imagemin");
-const imageminJpg = require("imagemin-mozjpeg");
-const imageminPng = require("imagemin-pngquant");
-const imageminGif = require("imagemin-gifsicle");
 
 // utility
 const notify = require('gulp-notify');	// 通知
 const plumber = require("gulp-plumber");	// 監視継続
-
 
 // path
 var rootdir = './dest';
@@ -32,9 +32,8 @@ var srcdir = {
 }
 
 
-//
-// task
-//
+// タスク記述
+
 
 // sass
 function styles() {
@@ -44,14 +43,13 @@ function styles() {
       // smacss 沿ってソート
       order: 'smacss'
     }),
-    autoprefixer({
+      // .browserslistrc に設定
       // IEは11以上、Androidは4.4以上
       // その他は最新2バージョンで必要なベンダープレフィックスを付与する設定
-      browsers: ["last 2 versions", "ie >= 11", "Android >= 4"],
+    autoprefixer({
       cascade: false
     })
   ];
-
   return gulp
     .src(srcdir.scss, { sourcemaps: true, })
     // watchエラー監視継続+DP通知
@@ -77,26 +75,22 @@ function html() {
    */
 }
 
-// 画像圧縮
 function images() {
   return gulp
     .src(srcdir.image, { since: gulp.lastRun(images) })
     .pipe(imagemin([
-      imageminPng(),
-      imageminJpg({
-        quality: 85,
-        progressive: true
-      }),
-      imageminGif({
-        interlaced: false,
-        optimizationLevel: 3,
-        colors: 180
+      imagemin.gifsicle({ interlaced: false, optimizationLevel:3 }),
+      imagemin.mozjpeg({ quality: 85, progressive: true }),
+      imagemin.optipng({ optimizationLevel: 5 }),
+      imagemin.svgo({
+        plugins: [
+          { removeViewBox: true },
+          { cleanupIDs: false }
+        ]
       })
-    ]
-    ))
+    ]))
     .pipe(gulp.dest(destdir))
 }
-
 
 // ファイルコピー
 function copy() {
@@ -104,6 +98,11 @@ function copy() {
     .src(srcdir.copy)
     .pipe(gulp.dest(destdir));
 }
+
+
+
+// タスク呼出
+
 
 // 監視
 function watch() {
@@ -122,4 +121,9 @@ exports.html = html;
 exports.images = images;
 exports.copy = copy;
 
- // npm i -D gulp-sass gulp-postcss autoprefixer css-declaration-sorter gulp-group-css-media-queries gulp-pug gulp-plumber gulp-notify gulp-imagemin imagemin-mozjpeg imagemin-pngquant imagemin-gifsicle
+
+// npm i -D gulp sass gulp-sass gulp-postcss autoprefixer css-declaration-sorter gulp-group-css-media-queries gulp-pug gulp-plumber gulp-notify gulp-imagemin@7.1.0
+
+// package.json があるときは、npm init で必要なパッケージがインストールされる
+
+// gulpの実行は `npx gulp ●●●●`

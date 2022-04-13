@@ -1,0 +1,5 @@
+/node_modules/*
+/src/*
+/dest/*
+package.json
+package-lock.json
